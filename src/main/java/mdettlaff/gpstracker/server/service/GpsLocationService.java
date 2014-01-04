@@ -7,6 +7,7 @@ import mdettlaff.gpstracker.server.persistence.GpsLocationDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GpsLocationService {
@@ -18,6 +19,7 @@ public class GpsLocationService {
 		this.feedItemDao = feedItemDao;
 	}
 
+	@Transactional
 	public void save(List<GpsLocation> locations) {
 		for (GpsLocation location : locations) {
 			feedItemDao.save(location);

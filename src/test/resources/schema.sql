@@ -4,5 +4,5 @@ CREATE TABLE GpsLocation (
 	id BIGINT NOT NULL PRIMARY KEY,
 	latitude REAL,
 	longitude REAL,
-	time TIMESTAMP,
+	time TIMESTAMP
 );

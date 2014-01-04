@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class GpsLocationDaoTest extends AbstractPersistenceTest {
 
+	private static final double DELTA = 0.000002;
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -27,17 +29,17 @@ public class GpsLocationDaoTest extends AbstractPersistenceTest {
 		// exercise
 		List<GpsLocation> results = dao.find();
 		// verify
-		assertEquals(2, results.size());
+		assertEquals(8, results.size());
 		GpsLocation result1 = results.get(0);
 		assertEquals(Long.valueOf(1), result1.getId());
 		assertNotNull(result1.getTime());
-		assertEquals(3.0, result1.getLatitude(), 0.001);
-		assertEquals(4.55, result1.getLongitude(), 0.001);
+		assertEquals(47.376119, result1.getLatitude(), DELTA);
+		assertEquals(8.553354, result1.getLongitude(), DELTA);
 		GpsLocation result2 = results.get(1);
 		assertEquals(Long.valueOf(2), result2.getId());
 		assertNotNull(result2.getTime());
-		assertEquals(3.1, result2.getLatitude(), 0.001);
-		assertEquals(4.57, result2.getLongitude(), 0.001);
+		assertEquals(47.376840, result2.getLatitude(), DELTA);
+		assertEquals(8.552711, result2.getLongitude(), DELTA);
 	}
 
 	@Test

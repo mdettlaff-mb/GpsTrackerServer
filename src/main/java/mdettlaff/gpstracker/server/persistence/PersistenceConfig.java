@@ -65,7 +65,6 @@ public class PersistenceConfig {
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 		ClassPathResource dataResource = new ClassPathResource("init-data.sql");
 		databasePopulator.setScripts(new Resource[] {dataResource});
-		databasePopulator.setContinueOnError(true);
 		bean.setDatabasePopulator(databasePopulator);
 		return bean;
 	}

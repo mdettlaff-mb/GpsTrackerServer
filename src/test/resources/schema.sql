@@ -1,0 +1,8 @@
+CREATE SEQUENCE GPS_LOCATION_ID_SEQ;
+
+CREATE TABLE GpsLocation (
+	id BIGINT NOT NULL PRIMARY KEY,
+	latitude REAL,
+	longitude REAL,
+	time TIMESTAMP,
+);

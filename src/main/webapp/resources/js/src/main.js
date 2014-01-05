@@ -2,7 +2,7 @@ $(function() {
 
 	var createMap = function() {
 		var mapOptions = {
-			mapTypeId: google.maps.MapTypeId.SATELLITE
+			mapTypeId: google.maps.MapTypeId.HYBRID
 		};
 		return new google.maps.Map(document.getElementById('map'), mapOptions);
 	};

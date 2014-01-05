@@ -11,7 +11,6 @@
 		<script src="/resources/js/src/main.js"></script>
 	</head>
 	<body>
-		<h3>GPS Tracker with Google Maps v3</h3>
 		<div id="map" class="map"></div>
 	</body>
 </html>

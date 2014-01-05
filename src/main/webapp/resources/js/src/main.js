@@ -9,19 +9,28 @@ $(function() {
 
 	var drawRoute = function(map, locations) {
 		var limits = new google.maps.LatLngBounds();
-		var points = [];
+		var paths = [[]];
+		var prevLocation = null;
+		var hour = 60 * 60 * 1000;
+		var interval = 6 * hour;
 		$.each(locations, function(k, location) {
 			var position = new google.maps.LatLng(location.latitude, location.longitude);
 			limits.extend(position);
-			points.push(position);
+			if (prevLocation != null && location.time - prevLocation.time > interval) {
+				paths.push([]);
+			}
+			paths[paths.length - 1].push(position);
+			prevLocation = location;
 		});
 		map.fitBounds(limits);
-		new google.maps.Polyline({
-			path: points,
-			strokeColor: '#0000ff',
-			strokeOpacity: 0.5,
-			strokeWeight: 5,
-			map: map
+		$.each(paths, function(k, path) {
+			new google.maps.Polyline({
+				path: path,
+				strokeColor: '#0000ff',
+				strokeOpacity: 0.5,
+				strokeWeight: 5,
+				map: map
+			});
 		});
 	};
 

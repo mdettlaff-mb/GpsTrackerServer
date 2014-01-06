@@ -9,10 +9,16 @@ $(function() {
 
 	var describeLocation = function(location) {
 		var result = '';
+		result += 'id: ' + location.id + '<br>';
 		result += 'latitude: ' + location.latitude + '<br>';
 		result += 'longitude: ' + location.longitude + '<br>';
-		result += 'time: ' + location.time + '<br>';
-		result += 'speed: ' + location.speed + '<br>';
+		var time = new Date(location.time).format('yyyy-mm-dd HH:MM:ss');
+		result += 'time: ' + time + '<br>';
+		result += 'accuracy: ' + location.accuracy + ' m<br>';
+		result += 'altitude: ' + location.altitude + ' m<br>';
+		result += 'bearing: ' + location.bearing + '°<br>';
+		var speed = location.speed * 3.6; // convert from meters per second to kph
+		result += 'speed: ' + speed.toFixed(2) + ' kph';
 		return result;
 	};
 
@@ -60,7 +66,8 @@ $(function() {
 				}
 				currentInfoWindow = new google.maps.InfoWindow({
 					content: describeLocation(location),
-					position: pathEvent.latLng
+					position: pathEvent.latLng,
+					disableAutoPan: true
 				});
 				currentInfoWindow.open(map);
 			});

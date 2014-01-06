@@ -7,13 +7,34 @@ $(function() {
 		return new google.maps.Map(document.getElementById('map'), mapOptions);
 	};
 
+	var describeLocation = function(location) {
+		var result = '';
+		result += 'latitude: ' + location.latitude + '<br>';
+		result += 'longitude: ' + location.longitude + '<br>';
+		result += 'time: ' + location.time + '<br>';
+		result += 'speed: ' + location.speed + '<br>';
+		return result;
+	};
+
+	var findNearestLocation = function(latLng, locations) {
+		var nearest = null;
+		$.each(locations, function(index, location) {
+			var distance = google.maps.geometry.spherical.computeDistanceBetween(
+				latLng, new google.maps.LatLng(location.latitude, location.longitude));
+			if (nearest == null || distance < nearest.distance) {
+				nearest = {location: location, distance: distance};
+			}
+		});
+		return nearest.location;
+	};
+
 	var drawRoute = function(map, locations) {
 		var limits = new google.maps.LatLngBounds();
 		var paths = [[]];
 		var prevLocation = null;
 		var hour = 60 * 60 * 1000;
 		var interval = 6 * hour;
-		$.each(locations, function(k, location) {
+		$.each(locations, function(index, location) {
 			var position = new google.maps.LatLng(location.latitude, location.longitude);
 			limits.extend(position);
 			if (prevLocation != null && location.time - prevLocation.time > interval) {
@@ -23,13 +44,25 @@ $(function() {
 			prevLocation = location;
 		});
 		map.fitBounds(limits);
-		$.each(paths, function(k, path) {
-			new google.maps.Polyline({
+		var currentInfoWindow = null;
+		$.each(paths, function(index, path) {
+			var polyLine = new google.maps.Polyline({
 				path: path,
 				strokeColor: '#0000ff',
 				strokeOpacity: 0.5,
 				strokeWeight: 5,
 				map: map
+			});
+			google.maps.event.addListener(polyLine, 'mouseover', function(pathEvent) {
+				var location = findNearestLocation(pathEvent.latLng, locations);
+				if (currentInfoWindow != null) {
+					currentInfoWindow.close();
+				}
+				currentInfoWindow = new google.maps.InfoWindow({
+					content: describeLocation(location),
+					position: pathEvent.latLng
+				});
+				currentInfoWindow.open(map);
 			});
 		});
 	};

@@ -61,9 +61,7 @@ $(function() {
 			});
 			google.maps.event.addListener(polyLine, 'mouseover', function(pathEvent) {
 				var location = findNearestLocation(pathEvent.latLng, locations);
-				if (currentInfoWindow != null) {
-					currentInfoWindow.close();
-				}
+				currentInfoWindow == null || currentInfoWindow.close();
 				currentInfoWindow = new google.maps.InfoWindow({
 					content: describeLocation(location),
 					position: pathEvent.latLng,
@@ -71,6 +69,9 @@ $(function() {
 				});
 				currentInfoWindow.open(map);
 			});
+		});
+		$(document).click(function(event) {
+			currentInfoWindow == null || currentInfoWindow.close();
 		});
 	};
 

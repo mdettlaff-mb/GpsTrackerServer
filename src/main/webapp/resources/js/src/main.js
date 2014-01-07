@@ -34,7 +34,11 @@ $(function() {
 		return nearest.location;
 	};
 
-	var drawRoute = function(map, locations) {
+	var drawRoute = function(map, locations, polyLines) {
+		$.each(polyLines, function(index, polyLine) {
+			polyLine.setMap(null);
+		});
+		polyLines.length = 0;
 		var limits = new google.maps.LatLngBounds();
 		var paths = [[]];
 		var hour = 60 * 60 * 1000;
@@ -57,6 +61,7 @@ $(function() {
 				strokeWeight: 5,
 				map: map
 			});
+			polyLines.push(polyLine);
 			google.maps.event.addListener(polyLine, 'mouseover', function(pathEvent) {
 				var location = findNearestLocation(pathEvent.latLng, locations);
 				currentInfoWindow == null || currentInfoWindow.close();
@@ -73,14 +78,36 @@ $(function() {
 		});
 	};
 
+	var drawLocations = function(map, polyLines) {
+		$.ajax({
+			url: '/location/list',
+		}).done(function (locations) {
+			drawRoute(map, locations, polyLines);
+		}).fail(function () {
+			alert('Unable to load locations.');
+		});
+	};
+
 
 	var map = createMap();
+	var polyLines = [];
+	drawLocations(map, polyLines);
 
-	$.ajax({
-		url: '/location/list',
-	}).done(function (locations) {
-		drawRoute(map, locations);
-	}).fail(function () {
-		alert('Unable to load locations.');
+	$('#date-combobox').change(function() {
+		$.post('/date', {
+			date : $('#date-combobox').val()
+		}).done(function(data) {
+			drawLocations(map, polyLines);
+		});
 	});
+
+	$('#interval-submit').click(function() {
+		$.post('/interval', {
+			start : $('#interval-start').val(),
+			end : $('#interval-end').val()
+		}).done(function(data) {
+			drawLocations(map, polyLines);
+		});
+	});
+
 });

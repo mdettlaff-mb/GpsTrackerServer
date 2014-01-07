@@ -108,6 +108,10 @@ $(function () {
 				}));
 				update();
 			});
+
+			$(document).on('interval-changed', function(event, time) {
+				update();
+			});
 		};
 
 

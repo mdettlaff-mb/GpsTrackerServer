@@ -81,9 +81,9 @@ $(function() {
 	var drawLocations = function(map, polyLines) {
 		$.ajax({
 			url: '/location/list',
-		}).done(function (locations) {
+		}).done(function(locations) {
 			drawRoute(map, locations, polyLines);
-		}).fail(function () {
+		}).fail(function() {
 			alert('Unable to load locations.');
 		});
 	};
@@ -92,6 +92,7 @@ $(function() {
 	var map = createMap();
 	var polyLines = [];
 	drawLocations(map, polyLines);
+
 
 	$('#date-combobox').change(function() {
 		$.post('/date', {

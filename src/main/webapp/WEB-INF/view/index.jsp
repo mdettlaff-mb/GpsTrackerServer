@@ -12,6 +12,7 @@
 		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<script src="/resources/js/lib/date.format.js"></script>
 		<script src="/resources/js/src/main.js"></script>
+		<script src="/resources/js/src/resize.js"></script>
 	</head>
 	<body>
 		<div class="top">

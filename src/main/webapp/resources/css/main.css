@@ -4,13 +4,9 @@ body, html {
 }
 
 .top {
-	height: 5%;
+	height: 50px;
 }
 
 .controls {
 	padding: 10px;
-}
-
-.map {
-	height: 95%;
 }

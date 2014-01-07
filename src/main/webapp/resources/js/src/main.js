@@ -37,17 +37,15 @@ $(function() {
 	var drawRoute = function(map, locations) {
 		var limits = new google.maps.LatLngBounds();
 		var paths = [[]];
-		var prevLocation = null;
 		var hour = 60 * 60 * 1000;
 		var interval = 6 * hour;
 		$.each(locations, function(index, location) {
 			var position = new google.maps.LatLng(location.latitude, location.longitude);
 			limits.extend(position);
-			if (prevLocation != null && location.time - prevLocation.time > interval) {
+			if (index > 0 && location.time - locations[index - 1].time > interval) {
 				paths.push([]);
 			}
 			paths[paths.length - 1].push(position);
-			prevLocation = location;
 		});
 		map.fitBounds(limits);
 		var currentInfoWindow = null;

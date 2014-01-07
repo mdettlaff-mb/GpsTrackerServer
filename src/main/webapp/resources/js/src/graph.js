@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 
 	var speedDataset = {label: "speed = ?", color: 4, data: []},
 		altitudeDataset = {label: "altitude = ?", color: 5, data: []},
@@ -83,28 +83,31 @@ $(document).ready(function () {
 			}
 		};
 
+		initEvents = function () {
+			$("#graph-placeholder").bind("plothover",  function (event, pos, item) {
+				latestPosition = pos;
+				if (!updateLegendTimeout) {
+					updateLegendTimeout = setTimeout(updateLegend, 50);
+				}
+			});
+
+			$("#graph-placeholder").bind("plotselected", function (event, ranges) {
+				plot = $.plot("#graph-placeholder", [], $.extend(true, {}, options, {
+					xaxis: {
+						min: ranges.xaxis.from,
+						max: ranges.xaxis.to
+					},
+					yaxis: {
+						min: ranges.yaxis.from,
+						max: ranges.yaxis.to
+					}
+				}));
+				update();
+			});
+		};
+
 
 	update();
-
-	$("#graph-placeholder").bind("plothover",  function (event, pos, item) {
-		latestPosition = pos;
-		if (!updateLegendTimeout) {
-			updateLegendTimeout = setTimeout(updateLegend, 50);
-		}
-	});
-
-	$("#graph-placeholder").bind("plotselected", function (event, ranges) {
-		plot = $.plot("#graph-placeholder", [], $.extend(true, {}, options, {
-			xaxis: {
-				min: ranges.xaxis.from,
-				max: ranges.xaxis.to
-			},
-			yaxis: {
-				min: ranges.yaxis.from,
-				max: ranges.yaxis.to
-			}
-		}));
-		update();
-	});
+	initEvents();
 
 });

@@ -11,8 +11,8 @@
 		<script src="/resources/js/lib/jquery-2.0.3.js"></script>
 		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<script src="/resources/js/lib/date.format.js"></script>
+		<script src="/resources/js/src/map.js"></script>
 		<script src="/resources/js/src/main.js"></script>
-		<script src="/resources/js/src/resize.js"></script>
 		<script src="/resources/js/lib/flot/jquery.flot.js"></script>
 		<script src="/resources/js/lib/flot/jquery.flot.navigate.js"></script>
 		<script src="/resources/js/lib/flot/jquery.flot.time.js"></script>

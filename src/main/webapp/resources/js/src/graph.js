@@ -78,7 +78,11 @@ $(function () {
 						break;
 					}
 				}
-				y = series.data[j - 1][1];
+	
+				var time = series.data[j - 1][0].getTime();
+				$(document).trigger('time-selected', time);
+
+				var y = series.data[j - 1][1];
 				ls.eq(i).text(series.label.replace(/=.*/, "= " + y.toFixed(2)));
 			}
 		};

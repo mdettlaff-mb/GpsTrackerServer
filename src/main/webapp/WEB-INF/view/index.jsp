@@ -13,12 +13,11 @@
 		<script src="/resources/js/lib/date.format.js"></script>
 		<script src="/resources/js/src/main.js"></script>
 		<script src="/resources/js/src/resize.js"></script>
-		<script src="/resources/js/lib/jquery.flot.min.js"></script>
-		<script src="/resources/js/lib/jquery.flot.navigate.min.js"></script>
-		<script src="/resources/js/lib/jquery.flot.resize.min.js"></script>
-		<script src="/resources/js/lib/jquery.flot.time.min.js"></script>
-		<script src="/resources/js/lib/jquery.flot.crosshair.min.js"></script>
-		<script src="/resources/js/lib/jquery.flot.selection.min.js"></script>
+		<script src="/resources/js/lib/flot/jquery.flot.js"></script>
+		<script src="/resources/js/lib/flot/jquery.flot.navigate.js"></script>
+		<script src="/resources/js/lib/flot/jquery.flot.time.js"></script>
+		<script src="/resources/js/lib/flot/jquery.flot.crosshair.js"></script>
+		<script src="/resources/js/lib/flot/jquery.flot.selection.js"></script>
 		<script src="/resources/js/src/graph.js"></script>
 	</head>
 	<body>

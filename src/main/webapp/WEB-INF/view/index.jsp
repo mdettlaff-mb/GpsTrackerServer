@@ -18,6 +18,7 @@
 		<script src="/resources/js/lib/flot/jquery.flot.time.js"></script>
 		<script src="/resources/js/lib/flot/jquery.flot.crosshair.js"></script>
 		<script src="/resources/js/lib/flot/jquery.flot.selection.js"></script>
+		<script src="/resources/js/lib/flot/jquery.flot.resize.js"></script>
 		<script src="/resources/js/src/graph.js"></script>
 	</head>
 	<body>

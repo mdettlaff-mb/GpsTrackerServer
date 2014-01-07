@@ -89,11 +89,9 @@ $(function() {
 	};
 
 
-	/*
 	var map = createMap();
 	var polyLines = [];
 	drawLocations(map, polyLines);
-	*/
 
 
 	$('#date-combobox').change(function() {

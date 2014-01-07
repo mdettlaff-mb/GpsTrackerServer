@@ -9,11 +9,10 @@
 		<title>GPS Tracker</title>
 		<link rel="stylesheet" href="/resources/css/main.css" type="text/css">
 		<script src="/resources/js/lib/jquery-2.0.3.js"></script>
-		<!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
+		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<script src="/resources/js/lib/date.format.js"></script>
 		<script src="/resources/js/src/main.js"></script>
-		<!--<script src="/resources/js/src/resize.js"></script>-->
-		<script src="/resources/js/lib/jquery-ui.min.js"></script>
+		<script src="/resources/js/src/resize.js"></script>
 		<script src="/resources/js/lib/jquery.flot.min.js"></script>
 		<script src="/resources/js/lib/jquery.flot.navigate.min.js"></script>
 		<script src="/resources/js/lib/jquery.flot.resize.min.js"></script>
@@ -41,11 +40,11 @@
 				<button id="interval-submit" type="button">Submit</button>
 			</div>
 		</div>
-
-		<div id="map" class="map"></div>
-
-		<div class="demo-container">
-			<div id="placeholder" class="demo-placeholder"></div>
+		<div class="content">
+			<div id="map" class="map"></div>
+			<div class="graph-container">
+				<div id="graph-placeholder" class="graph-placeholder"></div>
+			</div>
 		</div>
 	</body>
 </html>

@@ -98,7 +98,7 @@ $(function() {
 	};
 
 	var initEvents = function() {
-		$(document).on('interval-changed', function(event, time) {
+		$(document).on('interval-changed', function() {
 			drawLocations();
 		});
 	

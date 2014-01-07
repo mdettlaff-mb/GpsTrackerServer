@@ -109,7 +109,7 @@ $(function () {
 				update();
 			});
 
-			$(document).on('interval-changed', function(event, time) {
+			$(document).on('interval-changed', function() {
 				update();
 			});
 		};

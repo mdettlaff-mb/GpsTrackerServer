@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GpsLocationController {
 
 	private final GpsLocationService service;
+	private final UserPreferences preferences;
 
 	@Autowired
-	public GpsLocationController(GpsLocationService service) {
+	public GpsLocationController(GpsLocationService service, UserPreferences preferences) {
 		this.service = service;
+		this.preferences = preferences;
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.POST)
@@ -31,6 +33,6 @@ public class GpsLocationController {
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public @ResponseBody List<GpsLocation> getLocations() {
-		return service.find();
+		return service.find(preferences.getInterval());
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import mdettlaff.gpstracker.server.domain.GpsLocation;
+import mdettlaff.gpstracker.server.domain.Interval;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class GpsLocationDaoTest extends AbstractPersistenceTest {
 	@Test
 	public void testFind() {
 		// exercise
-		List<GpsLocation> results = dao.find();
+		List<GpsLocation> results = dao.find(new Interval(null, null));
 		// verify
 		assertEquals(8, results.size());
 		GpsLocation result1 = results.get(0);

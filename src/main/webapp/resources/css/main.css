@@ -3,6 +3,14 @@ body, html {
 	margin: 0;
 }
 
-div.map {
-	height: 100%;
+.top {
+	height: 5%;
+}
+
+.controls {
+	padding: 10px;
+}
+
+.map {
+	height: 95%;
 }

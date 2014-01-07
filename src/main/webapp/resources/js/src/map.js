@@ -79,6 +79,7 @@ $(function() {
 			google.maps.event.addListener(polyLine, 'mouseover', function(pathEvent) {
 				var location = findNearestLocation(pathEvent.latLng);
 				showInfoWindow(pathEvent.latLng, location);
+				$(document).trigger('location-selected', location.time);
 			});
 		});
 		$(document).click(function(event) {

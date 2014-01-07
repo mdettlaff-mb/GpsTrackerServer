@@ -58,11 +58,14 @@ $(function () {
 
 		updateLegendTimeout = null,
 		latestPosition = null,
+		updateLabel = function (i, label, y) {
+			var ls = $("#graph-placeholder .legendLabel");
+			ls.eq(i).text(label.replace(/=.*/, "= " + y.toFixed(2)));
+		},
 		updateLegend = function () {
 			updateLegendTimeout = null;
 
 			var pos = latestPosition;
-			var ls = $("#graph-placeholder .legendLabel");
 
 			var axes = plot.getAxes();
 			if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
@@ -83,7 +86,7 @@ $(function () {
 				$(document).trigger('time-selected', time);
 
 				var y = series.data[j - 1][1];
-				ls.eq(i).text(series.label.replace(/=.*/, "= " + y.toFixed(2)));
+				updateLabel(i, series.label, y);
 			}
 		};
 
@@ -111,6 +114,21 @@ $(function () {
 
 			$(document).on('interval-changed', function() {
 				update();
+			});
+
+			$(document).on('location-selected', function(event, time) {
+				plot.setCrosshair({x: time});
+				var i, j, dataset = plot.getData();
+				for (i = 0; i < dataset.length; ++i) {
+					var series = dataset[i];
+					for (j = 0; j < series.data.length; ++j) {
+						if (series.data[j][0] > new Date(time)) {
+							break;
+						}
+					}
+					var y = series.data[j - 1][1];
+					updateLabel(i, series.label, y);
+				}
 			});
 		};
 

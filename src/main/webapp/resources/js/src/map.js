@@ -108,7 +108,7 @@ $(function() {
 	};
 
 	var initEvents = function() {
-		$(document).on('interval-changed', function() {
+		$(document).on('update-data', function() {
 			drawLocations();
 		});
 	

@@ -5,7 +5,7 @@ $(function() {
 			$.post('/date', {
 				date : $('#date-combobox').val()
 			}).done(function(data) {
-				$(document).trigger('interval-changed');
+				$(document).trigger('update-data');
 			});
 		});
 	
@@ -14,8 +14,22 @@ $(function() {
 				start : $('#interval-start').val(),
 				end : $('#interval-end').val()
 			}).done(function(data) {
-				$(document).trigger('interval-changed');
+				$(document).trigger('update-data');
 			});
+		});
+
+		$('#layout-combobox').change(function() {
+			var mapHeight = $('#layout-combobox').val();
+			$('.map').css('height', mapHeight + '%');
+			var graphHeight = 100 - mapHeight;
+			if (graphHeight == 0) {
+				$('.graph-container').css('display', 'none');
+			} else {
+				$('.graph-container').css('display', 'block');
+				$('.graph-container').css('height', graphHeight + '%');
+			}
+			$(window).trigger('resize');
+			$(document).trigger('update-data');
 		});
 	};
 

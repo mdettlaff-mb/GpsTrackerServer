@@ -112,7 +112,7 @@ $(function () {
 				update();
 			});
 
-			$(document).on('interval-changed', function() {
+			$(document).on('update-data', function() {
 				update();
 			});
 

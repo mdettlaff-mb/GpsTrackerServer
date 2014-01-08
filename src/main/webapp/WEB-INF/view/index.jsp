@@ -38,6 +38,13 @@
 				End date:
 				<input id="interval-end" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.end}" pattern="yyyy-MM-dd HH:mm" />">
 				<button id="interval-submit" type="button">Submit</button>
+				<span class="horizontal-separator"></span>
+				Layout:
+				<select id="layout-combobox">
+					<option value="75" SELECTED>Map and graph</option>
+					<option value="100">Map only</option>
+					<option value="0">Graph only</option>
+				</select>
 			</div>
 		</div>
 		<div class="content">

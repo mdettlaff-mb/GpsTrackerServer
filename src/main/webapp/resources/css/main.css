@@ -28,3 +28,8 @@ body, html {
 	height: 100%;
 	font-size: 14px;
 }
+
+.horizontal-separator {
+	margin-right: 32px;
+}
+

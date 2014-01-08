@@ -6,13 +6,13 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.config.PropertyOverrideConfigurer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
-@ComponentScan(basePackageClasses = PersistenceConfig.class)
+@Import(PersistenceConfig.class)
 public class PersistenceTestConfig {
 
 	@Bean

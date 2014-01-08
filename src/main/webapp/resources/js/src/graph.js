@@ -91,7 +91,7 @@ $(function () {
 		};
 
 		initEvents = function () {
-			$("#graph-placeholder").bind("plothover",  function (event, pos, item) {
+			$("#graph-placeholder").bind("plothover", function (event, pos, item) {
 				latestPosition = pos;
 				if (!updateLegendTimeout) {
 					updateLegendTimeout = setTimeout(updateLegend, 50);

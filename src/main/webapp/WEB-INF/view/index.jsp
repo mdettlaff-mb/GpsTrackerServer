@@ -27,9 +27,9 @@
 				<div class="controls-time">
 					Day:
 					<select id="date-combobox">
-						<option></option>
+						<option>All</option>
 						<c:forEach items="${dates}" var="date">
-							<option value="${date}" ${date eq preferences.date ? 'SELECTED' : ''}>
+							<option value="${date}"${date eq preferences.date ? ' selected' : ''}>
 								<fmt:formatDate value="${date}" />
 							</option>
 						</c:forEach>
@@ -43,7 +43,7 @@
 				<div class="controls-layout">
 					Layout:
 					<select id="layout-combobox">
-						<option value="75" SELECTED>Map and graph</option>
+						<option value="75" selected>Map and graph</option>
 						<option value="100">Map only</option>
 						<option value="0">Graph only</option>
 					</select>

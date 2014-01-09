@@ -112,6 +112,10 @@ $(function() {
 				showInfoWindow(position, location);
 			}
 		});
+
+		$(document).on('resize-map', function() {
+			google.maps.event.trigger(map, 'resize');
+		});
 	};
 	
 

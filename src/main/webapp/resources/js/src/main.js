@@ -23,6 +23,7 @@ $(function() {
 		$(window).on('resize', function() {
 			var contentHeight = Math.max(100, $('body').height() - $('.top').height());
 			$('.content').css('height', contentHeight);
+			$(document).trigger('resize-map');
 		});
 		$(window).trigger('resize');
 	};

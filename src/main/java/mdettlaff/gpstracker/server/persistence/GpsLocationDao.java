@@ -25,9 +25,9 @@ public class GpsLocationDao {
 		if (interval.getStart() != null && interval.getEnd() != null) {
 			queryString.append("WHERE time BETWEEN :start AND :end ");
 		} else if (interval.getStart() != null) {
-			queryString.append("WHERE time = :start ");
+			queryString.append("WHERE time >= :start ");
 		} else if (interval.getEnd() != null) {
-			queryString.append("WHERE time = :end ");
+			queryString.append("WHERE time <= :end ");
 		}
 		queryString.append("ORDER BY time");
 		Query query = em.createQuery(queryString.toString());

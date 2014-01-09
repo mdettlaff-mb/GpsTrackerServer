@@ -27,11 +27,15 @@ $(function() {
 		return result;
 	};
 	
+	var locationToLatLng = function(location) {
+		return new google.maps.LatLng(location.latitude, location.longitude);
+	};
+
 	var findNearestLocation = function(latLng) {
 		var nearest = null;
 		$.each(locations, function(index, location) {
 			var distance = google.maps.geometry.spherical.computeDistanceBetween(
-				latLng, new google.maps.LatLng(location.latitude, location.longitude));
+				latLng, locationToLatLng(location));
 			if (nearest == null || distance < nearest.distance) {
 				nearest = {location: location, distance: distance};
 			}
@@ -49,24 +53,29 @@ $(function() {
 		currentInfoWindow.open(map);
 	};
 
+	var fitBounds = function() {
+		var limits = new google.maps.LatLngBounds();
+		$.each(locations, function(index, location) {
+			limits.extend(locationToLatLng(location));
+		});
+		map.fitBounds(limits);
+	};
+
 	var drawRoute = function() {
 		$.each(polyLines, function(index, polyLine) {
 			polyLine.setMap(null);
 		});
 		polyLines.length = 0;
-		var limits = new google.maps.LatLngBounds();
 		var paths = [[]];
 		var hour = 60 * 60 * 1000;
 		var interval = 6 * hour;
 		$.each(locations, function(index, location) {
-			var position = new google.maps.LatLng(location.latitude, location.longitude);
-			limits.extend(position);
 			if (index > 0 && location.time - locations[index - 1].time > interval) {
 				paths.push([]);
 			}
-			paths[paths.length - 1].push(position);
+			paths[paths.length - 1].push(locationToLatLng(location));
 		});
-		map.fitBounds(limits);
+		fitBounds();
 		$.each(paths, function(index, path) {
 			var polyLine = new google.maps.Polyline({
 				path: path,
@@ -108,8 +117,7 @@ $(function() {
 				return location.time == time;
 			}).shift();
 			if (location) {
-				var position = new google.maps.LatLng(location.latitude, location.longitude);
-				showInfoWindow(position, location);
+				showInfoWindow(locationToLatLng(location), location);
 			}
 		});
 

@@ -24,27 +24,30 @@
 	<body>
 		<div class="top">
 			<div class="controls">
-				Day:
-				<select id="date-combobox">
-					<option></option>
-					<c:forEach items="${dates}" var="date">
-						<option value="${date}" ${date eq sessionScope['scopedTarget.userPreferences'].date ? 'SELECTED' : ''}>
-							<fmt:formatDate value="${date}" />
-						</option>
-					</c:forEach>
-				</select>
-				Start date:
-				<input id="interval-start" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.start}" pattern="yyyy-MM-dd HH:mm" />">
-				End date:
-				<input id="interval-end" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.end}" pattern="yyyy-MM-dd HH:mm" />">
-				<button id="interval-submit" type="button">Submit</button>
-				<span class="horizontal-separator"></span>
-				Layout:
-				<select id="layout-combobox">
-					<option value="75" SELECTED>Map and graph</option>
-					<option value="100">Map only</option>
-					<option value="0">Graph only</option>
-				</select>
+				<div class="controls-time">
+					Day:
+					<select id="date-combobox">
+						<option></option>
+						<c:forEach items="${dates}" var="date">
+							<option value="${date}" ${date eq sessionScope['scopedTarget.userPreferences'].date ? 'SELECTED' : ''}>
+								<fmt:formatDate value="${date}" />
+							</option>
+						</c:forEach>
+					</select>
+					Start date:
+					<input id="interval-start" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.start}" pattern="yyyy-MM-dd HH:mm" />">
+					End date:
+					<input id="interval-end" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.end}" pattern="yyyy-MM-dd HH:mm" />">
+					<button id="interval-submit" type="button">Submit</button>
+				</div>
+				<div class="controls-layout">
+					Layout:
+					<select id="layout-combobox">
+						<option value="75" SELECTED>Map and graph</option>
+						<option value="100">Map only</option>
+						<option value="0">Graph only</option>
+					</select>
+				</div>
 			</div>
 		</div>
 		<div class="content">

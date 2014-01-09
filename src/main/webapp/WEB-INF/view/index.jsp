@@ -29,15 +29,15 @@
 					<select id="date-combobox">
 						<option></option>
 						<c:forEach items="${dates}" var="date">
-							<option value="${date}" ${date eq sessionScope['scopedTarget.userPreferences'].date ? 'SELECTED' : ''}>
+							<option value="${date}" ${date eq preferences.date ? 'SELECTED' : ''}>
 								<fmt:formatDate value="${date}" />
 							</option>
 						</c:forEach>
 					</select>
 					Start date:
-					<input id="interval-start" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.start}" pattern="yyyy-MM-dd HH:mm" />">
+					<input id="interval-start" type="text" value="<fmt:formatDate value="${preferences.interval.start}" pattern="yyyy-MM-dd HH:mm" />">
 					End date:
-					<input id="interval-end" type="text" value="<fmt:formatDate value="${sessionScope['scopedTarget.userPreferences'].interval.end}" pattern="yyyy-MM-dd HH:mm" />">
+					<input id="interval-end" type="text" value="<fmt:formatDate value="${preferences.interval.end}" pattern="yyyy-MM-dd HH:mm" />">
 					<button id="interval-submit" type="button">Submit</button>
 				</div>
 				<div class="controls-layout">

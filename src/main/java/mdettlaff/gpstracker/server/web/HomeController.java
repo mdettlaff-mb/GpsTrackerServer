@@ -2,7 +2,9 @@ package mdettlaff.gpstracker.server.web;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mdettlaff.gpstracker.server.domain.Interval;
 import mdettlaff.gpstracker.server.service.GpsLocationService;
@@ -33,7 +35,10 @@ public class HomeController {
 	public ModelAndView home() {
 		List<Date> dates = service.findTripDays();
 		initPreferences(dates);
-		return new ModelAndView("index", "dates", dates);
+		Map<String, Object> model = new HashMap<>();
+		model.put("dates", dates);
+		model.put("preferences", preferences);
+		return new ModelAndView("index", model);
 	}
 
 	@RequestMapping(value = "/date", method = RequestMethod.POST)

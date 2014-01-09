@@ -27,7 +27,7 @@
 				<div class="controls-time">
 					Day:
 					<select id="date-combobox">
-						<option>All</option>
+						<option value="">All</option>
 						<c:forEach items="${dates}" var="date">
 							<option value="${date}"${date eq preferences.date ? ' selected' : ''}>
 								<fmt:formatDate value="${date}" />

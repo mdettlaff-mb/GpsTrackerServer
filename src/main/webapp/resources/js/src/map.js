@@ -121,8 +121,15 @@ $(function() {
 			}
 		});
 
+		var center;
+
 		$(document).on('resize-map', function() {
 			google.maps.event.trigger(map, 'resize');
+			map.setCenter(center);
+		});
+
+		google.maps.event.addListener(map, "bounds_changed", function() {
+			center = map.getCenter();
 		});
 	};
 	

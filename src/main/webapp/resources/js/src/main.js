@@ -34,12 +34,15 @@ $(function() {
 	};
 
 	var initResize = function() {
-		$(window).on('resize', function() {
+		var resizeContent = function() {
 			var contentHeight = Math.max(100, $('body').height() - $('.top').height());
 			$('.content').css('height', contentHeight);
+		};
+		$(window).on('resize', function() {
+			resizeContent();
 			$(document).trigger('resize-map');
 		});
-		$(window).trigger('resize');
+		resizeContent();
 	};
 
 

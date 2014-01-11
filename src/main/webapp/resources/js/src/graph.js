@@ -3,7 +3,7 @@ $(function () {
 	var speedDataset = {label: "speed = ?", color: 4, data: []},
 		altitudeDataset = {label: "altitude = ?", color: 5, data: []},
 
-		selectedDatasets = [speedDataset, altitudeDataset],
+		selectedDatasets = [altitudeDataset, speedDataset],
 
 		statsUrl = '/location/list',
 

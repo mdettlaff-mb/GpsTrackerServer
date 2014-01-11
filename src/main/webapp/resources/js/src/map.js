@@ -12,6 +12,17 @@ $(function() {
 		return new google.maps.Map(document.getElementById('map'), mapOptions);
 	};
 	
+	var formatDuration = function(durationInSeconds) {
+		var duration = parseInt(durationInSeconds, 10);
+		var padWithZeros = function(n) {
+			return ('00' + n).slice(-2);
+		};
+		var seconds = padWithZeros(duration % 60);
+		var minutes = padWithZeros(Math.floor(duration / 60) % 60);
+		var hours = padWithZeros(Math.floor(duration / (60 * 60)));
+		return hours + ':' + minutes + ':' + seconds;
+	};
+
 	var describeLocation = function(location) {
 		var result = '';
 		result += 'id: ' + location.id + '<br>';
@@ -20,10 +31,17 @@ $(function() {
 		var time = new Date(location.time).format('yyyy-mm-dd HH:MM:ss');
 		result += 'time: ' + time + '<br>';
 		result += 'accuracy: ' + location.accuracy + ' m<br>';
-		result += 'altitude: ' + location.altitude + ' m<br>';
-		result += 'bearing: ' + location.bearing + '°<br>';
-		var speed = location.speed * 3.6; // convert from meters per second to kph
-		result += 'speed: ' + speed.toFixed(2) + ' kph';
+		result += 'altitude: ' + location.altitude.toFixed(2) + ' m<br>';
+		result += 'bearing: ' + location.bearing.toFixed(2) + '°<br>';
+		var speed = location.speed * 3.6; // convert from m/s to kph
+		result += 'speed: ' + speed.toFixed(2) + ' kph<br>';
+		var pathInfo = location.pathInfo;
+		var elapsedTime = formatDuration(pathInfo.elapsedTime / 1000);
+		result += 'elapsed time: ' + elapsedTime + '<br>';
+		var distance = pathInfo.distance / 1000; // convert from m to km
+		result += 'distance: ' + distance.toFixed(3) + ' km<br>';
+		var avgSpeed = pathInfo.avgSpeed * 3.6; // convert from m/s to kph
+		result += 'average speed: ' + avgSpeed.toFixed(2) + ' kph';
 		return result;
 	};
 	
@@ -61,6 +79,29 @@ $(function() {
 		map.fitBounds(limits);
 	};
 
+	var setLocationPathInfo = function(paths) {
+		$.each(paths, function(index, path) {
+			var startTime = path[0].time;
+			var distance = 0;
+			$.each(path, function(index, location) {
+				var pathInfo = {};
+				if (index > 0) {
+					distance += google.maps.geometry.spherical.computeDistanceBetween(
+						locationToLatLng(path[index - 1]), locationToLatLng(location));
+				}
+				var elapsedTime = location.time - startTime;
+				pathInfo.elapsedTime = elapsedTime;
+				pathInfo.distance = distance;
+				if (elapsedTime > 0) {
+					pathInfo.avgSpeed = distance / (elapsedTime / 1000);
+				} else {
+					pathInfo.avgSpeed = 0;
+				}
+				location.pathInfo = pathInfo;
+			});
+		});
+	};
+
 	var drawRoute = function() {
 		$.each(polyLines, function(index, polyLine) {
 			polyLine.setMap(null);
@@ -73,12 +114,15 @@ $(function() {
 			if (index > 0 && location.time - locations[index - 1].time > interval) {
 				paths.push([]);
 			}
-			paths[paths.length - 1].push(locationToLatLng(location));
+			paths[paths.length - 1].push(location);
 		});
 		fitBounds();
+		setLocationPathInfo(paths);
 		$.each(paths, function(index, path) {
 			var polyLine = new google.maps.Polyline({
-				path: path,
+				path: $.map(path, function(location) {
+					return locationToLatLng(location);
+				}),
 				strokeColor: '#0000ff',
 				strokeOpacity: 0.5,
 				strokeWeight: 5,

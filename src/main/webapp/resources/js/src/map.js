@@ -135,9 +135,6 @@ $(function() {
 				$(document).trigger('location-selected', location.time);
 			});
 		});
-		$(document).click(function(event) {
-			currentInfoWindow == null || currentInfoWindow.close();
-		});
 	};
 	
 	var drawLocations = function() {
@@ -174,6 +171,10 @@ $(function() {
 
 		google.maps.event.addListener(map, "bounds_changed", function() {
 			center = map.getCenter();
+		});
+
+		$(document).click(function(event) {
+			currentInfoWindow == null || currentInfoWindow.close();
 		});
 	};
 	

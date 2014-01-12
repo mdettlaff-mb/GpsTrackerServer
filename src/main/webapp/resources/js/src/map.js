@@ -24,6 +24,15 @@ $(function() {
 	};
 
 	var describeLocation = function(location) {
+		var computeAvgSpeedKph = function(distance, elapsedTime) {
+			if (elapsedTime > 0) {
+				var avgSpeed = distance / elapsedTime;
+				return avgSpeed * 3.6; // convert from m/s to kph
+			} else {
+				return 0;
+			}
+		};
+
 		var result = '';
 		result += 'id: ' + location.id + '<br>';
 		result += 'latitude: ' + location.latitude + '<br>';
@@ -40,7 +49,7 @@ $(function() {
 		result += 'elapsed time: ' + elapsedTime + '<br>';
 		var distance = pathInfo.distance / 1000; // convert from m to km
 		result += 'distance: ' + distance.toFixed(3) + ' km<br>';
-		var avgSpeed = pathInfo.avgSpeed * 3.6; // convert from m/s to kph
+		var avgSpeed = computeAvgSpeedKph(pathInfo.distance, pathInfo.elapsedTime / 1000);
 		result += 'average speed: ' + avgSpeed.toFixed(2) + ' kph';
 		return result;
 	};
@@ -92,11 +101,6 @@ $(function() {
 				var elapsedTime = location.time - startTime;
 				pathInfo.elapsedTime = elapsedTime;
 				pathInfo.distance = distance;
-				if (elapsedTime > 0) {
-					pathInfo.avgSpeed = distance / (elapsedTime / 1000);
-				} else {
-					pathInfo.avgSpeed = 0;
-				}
 				location.pathInfo = pathInfo;
 			});
 		});
